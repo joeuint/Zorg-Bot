@@ -1,5 +1,8 @@
 # Zorg-Bot
 
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
+
 Zorg-Bot is a multi purpose Discord bot. It is under very early development and is **not ready for production**.
 
 ## Self-Hosting
