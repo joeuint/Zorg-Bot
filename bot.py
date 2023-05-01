@@ -12,9 +12,10 @@ from discord.ext import commands
 # First Party Imports
 from utils.logging import logging_setup
 from utils.cogs import load_cogs
+from utils.db import init_db
 
 
-def main():
+def main() -> None:
     load_dotenv()
 
     root = logging_setup()
@@ -25,6 +26,12 @@ def main():
     intents.message_content = True
 
     bot = commands.Bot('%', intents=intents)
+
+    root.log(logging.INFO, 'Connecting to database...')
+
+    database = init_db()
+
+    root.log(logging.INFO, f'Connected to database: {database.HOST}:{database.PORT}!')
 
     load_cogs(bot, root)
 
