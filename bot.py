@@ -29,7 +29,7 @@ def main() -> None:
 
     root.log(logging.INFO, 'Connecting to database...')
 
-    database = init_db()
+    database = init_db()['astral_bot']
 
     root.log(logging.INFO, f'Connected to database: {database.HOST}:{database.PORT}!')
 
