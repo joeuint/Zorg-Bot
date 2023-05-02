@@ -14,7 +14,13 @@ def can_ban():
     return app_commands.check(predicate)
 
 
-def can_mute():
+def can_manage_messages():
     def predicate(interaction: discord.Interaction):
         return interaction.permissions.manage_messages
+    return app_commands.check(predicate)
+
+
+def can_manage_nicknames():
+    def predicate(interaction: discord.Interaction):
+        return interaction.permissions.manage_nicknames
     return app_commands.check(predicate)
