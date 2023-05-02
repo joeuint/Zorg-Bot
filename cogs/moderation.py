@@ -3,7 +3,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from utils.checks import can_kick, can_ban, can_mute
+from utils.checks import can_kick, can_ban
 
 
 class Moderation(commands.Cog):
