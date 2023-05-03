@@ -1,3 +1,8 @@
+name: Linting
+
+on: push
+
+jobs:
   install-test:
     runs-on: ubuntu-latest
 
