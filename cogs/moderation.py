@@ -27,8 +27,13 @@ class Moderation(commands.Cog):
         if reason == '':
             reason = 'No reason Provided'
 
+        if member.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id:
+            await interaction.response.send_message('You can only ban people below you!', ephemeral=True)
+            return
+        elif member.id == interaction.guild.owner_id:
+            await interaction.response.send_message('You cannot ban the owner!', ephemeral=True)
+            return
         await member.ban(reason=reason + f' (Banned by {interaction.user.name}#{interaction.user.discriminator})')
-
         await interaction.response.send_message('Member has been banned', ephemeral=hidden)
 
     @ban.error
@@ -59,8 +64,13 @@ class Moderation(commands.Cog):
         if reason == '':
             reason = 'No reason Provided'
 
-        await member.kick(reason=reason + f' (Banned by {interaction.user.name}#{interaction.user.discriminator})')
-
+        if member.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id:
+            await interaction.response.send_message('You can only kick people below you!', ephemeral=True)
+            return
+        elif member.id == interaction.guild.owner_id:
+            await interaction.response.send_message('You cannot kick the owner!', ephemeral=True)
+            return
+        await member.kick(reason=reason + f' (Kicked by {interaction.user.name}#{interaction.user.discriminator})')
         await interaction.response.send_message('Member has been kicked', ephemeral=hidden)
 
     @kick.error
