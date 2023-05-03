@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
-lint = pylint --recursive=true .
+lint = "pylint --recursive=true ."
 
 [packages]
 "discord.py" = "*"
