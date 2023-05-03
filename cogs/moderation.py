@@ -16,7 +16,14 @@ class Moderation(commands.Cog):
     @app_commands.describe(member='The member to ban.', reason='The reason for the ban', hidden='If the command is visible to the chat')
     @can_ban()
     async def ban(self, interaction: discord.Interaction, member: discord.Member, reason: str = 'No reason provided', hidden: bool = False):
-        """Bans the specified user (Only if author has ban perms)"""
+        """bans the mentioned user
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            member (discord.Member): The member to ban
+            reason (str, optional): The reason for the ban. Defaults to 'No reason provided'.
+            hidden (bool, optional): Hides the message. Defaults to False.
+        """
         if reason == '':
             reason = 'No reason Provided'
 
@@ -26,15 +33,29 @@ class Moderation(commands.Cog):
 
     @ban.error
     async def ban_error(self, interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
+        """Executes when the ban command fails
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            error (discord.app_commands.AppCommandError): The exception that occured
+        """
         if isinstance(error, discord.app_commands.errors.CommandInvokeError):
             if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
+                # Bot missing permissions
                 await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)
 
     @app_commands.command(name='kick', description='Kicks a user')
     @app_commands.describe(member='The member to kick.', reason='The reason for the kick', hidden='If the command is visible to the chat')
     @can_kick()
     async def kick(self, interaction: discord.Interaction, member: discord.Member, reason: str = 'No reason provided', hidden: bool = False):
-        """Kicks the specified user (Only if author has kick perms)"""
+        """Kicks the mentioned user
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            member (discord.Member): The member to ban
+            reason (str, optional): The reason for the kick. Defaults to 'No reason provided'.
+            hidden (bool, optional): Hides the message. Defaults to False.
+        """
         if reason == '':
             reason = 'No reason Provided'
 
@@ -44,6 +65,12 @@ class Moderation(commands.Cog):
 
     @kick.error
     async def kick_error(self, interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
+        """Executes when kick command fails
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            error (discord.app_commands.AppCommandError): The exception that occurs
+        """
         if isinstance(error, discord.app_commands.errors.CommandInvokeError):
             if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)

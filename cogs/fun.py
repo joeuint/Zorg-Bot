@@ -11,6 +11,11 @@ from discord import app_commands
 
 
 async def get_meme():
+    """Gets a meme from meme-api
+
+    Returns:
+        _type_: _description_
+    """
     session = aiohttp.ClientSession()
     data = await session.get('https://meme-api.com/gimme')
     json = await data.json()
@@ -62,6 +67,13 @@ class Fun(commands.Cog):
     @app_commands.command(name='dice', description='Roll a dice')
     @app_commands.describe(start='The starting number', end='The ending number')
     async def dice(self, interaction: discord.Interaction, start: int = 1, end: int = 6) -> None:
+        """Generates a number from 1-6 by default
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            start (int, optional): starting value. Defaults to 1.
+            end (int, optional): ending value. Defaults to 6.
+        """
         if start > end:
             await interaction.response.send_message('Your start number cannot be greater than the end number')
             return
@@ -83,7 +95,7 @@ class Fun(commands.Cog):
             interaction (discord.Interaction): The interaction that the bot has made
         """
         data = {}
-        for i in range(6):
+        for _ in range(6):
             data = await get_meme()
             if not data['nsfw']:
                 break

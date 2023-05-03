@@ -16,11 +16,12 @@ from utils.db import init_db
 
 
 def main() -> None:
+    """The main function"""
     load_dotenv()
 
     root = logging_setup()
 
-    TOKEN = os.getenv('DISCORD_TOKEN')
+    token = os.getenv('DISCORD_TOKEN')
 
     intents = discord.Intents.default()
     intents.message_content = True
@@ -65,7 +66,7 @@ def main() -> None:
         synced = await bot.tree.sync()
         await ctx.send(f'Synced {len(synced)} commands globally!')
 
-    bot.run(TOKEN, log_handler=None)
+    bot.run(token, log_handler=None)
 
 
 if __name__ == '__main__':
