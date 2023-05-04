@@ -1,9 +1,11 @@
 """Contains general, but useful commands for the bot"""
 
+from random import choices
+import string
 import discord
 from discord.ext import commands
 from discord import app_commands
-from utils.checks import can_kick, can_ban
+from utils.checks import can_kick, can_ban, can_manage_nicknames
 
 
 class Moderation(commands.Cog):
@@ -84,6 +86,27 @@ class Moderation(commands.Cog):
         if isinstance(error, discord.app_commands.errors.CommandInvokeError):
             if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)
+
+    @app_commands.command(name='modnick', description='Moderates a user\'s nickname')
+    @app_commands.describe(member='The member to moderate')
+    @can_manage_nicknames()
+    async def mod_nick(self, interaction: discord.Interaction, member: discord.Member):
+        """Moderates a user's nickname
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            member (discord.Member): The member to nickname moderate
+        """
+        if member.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id:
+            await interaction.response.send_message('You can only change the nickname of people below you!', ephemeral=True)
+            return
+        if member.id == interaction.guild.owner_id:
+            await interaction.response.send_message('You cannot change the nickname of the owner!', ephemeral=True)
+            return
+        nickname_id = ''.join(choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=9))
+        await member.edit(nick=f'Moderated {nickname_id}')
+
+        await interaction.response.send_message('Nickname Moderated!')
 
 
 async def setup(bot: commands.Bot):
