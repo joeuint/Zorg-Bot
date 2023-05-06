@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 DB_CLIENT = None
 
-def init_db() -> MongoClient:
+def init_db(hostname, port, db_name) -> MongoClient:
     """Initializes and returns the MongoDB connection
 
     Returns:

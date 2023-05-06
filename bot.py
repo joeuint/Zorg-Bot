@@ -30,7 +30,7 @@ def main() -> None:
 
     root.log(logging.INFO, 'Connecting to database...')
 
-    database = init_db()['astral_bot']
+    database = init_db(os.getenv('MONGO_HOSTNAME'), os.getenv('MONGO_PORT'), os.getenv('MONGO_DB'))
 
     root.log(logging.INFO, f'Connected to database: {database.HOST}:{database.PORT}!')
 
