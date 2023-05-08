@@ -5,7 +5,7 @@ import string
 import discord
 from discord.ext import commands
 from discord import app_commands
-from utils.checks import can_kick, can_ban, can_manage_nicknames
+from utils.checks import can_kick, can_ban, can_manage_nicknames, check_hierarchy
 
 
 class Moderation(commands.Cog):
@@ -29,12 +29,11 @@ class Moderation(commands.Cog):
         if reason == '':
             reason = 'No reason Provided'
 
-        if member.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id:
-            await interaction.response.send_message('You can only ban people below you!', ephemeral=True)
-            return
-        if member.id == interaction.guild.owner_id:
-            await interaction.response.send_message('You cannot ban the owner!', ephemeral=True)
-            return
+        authorized = check_hierarchy(member, interaction.user, interaction.guild)
+
+        if not authorized:
+            await interaction.response.send_message('You cannot do that', ephemeral=True)
+
         await member.ban(reason=reason + f' (Banned by {interaction.user.name}#{interaction.user.discriminator})')
         await interaction.response.send_message('Member has been banned', ephemeral=hidden)
 
@@ -63,15 +62,11 @@ class Moderation(commands.Cog):
             reason (str, optional): The reason for the kick. Defaults to 'No reason provided'.
             hidden (bool, optional): Hides the message. Defaults to False.
         """
-        if reason == '':
-            reason = 'No reason Provided'
+        authorized = check_hierarchy(member, interaction.user, interaction.guild)
 
-        if member.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id:
-            await interaction.response.send_message('You can only kick people below you!', ephemeral=True)
-            return
-        if member.id == interaction.guild.owner_id:
-            await interaction.response.send_message('You cannot kick the owner!', ephemeral=True)
-            return
+        if not authorized:
+            await interaction.response.send_message('You cannot do that', ephemeral=True)
+
         await member.kick(reason=reason + f' (Kicked by {interaction.user.name}#{interaction.user.discriminator})')
         await interaction.response.send_message('Member has been kicked', ephemeral=hidden)
 
@@ -97,12 +92,11 @@ class Moderation(commands.Cog):
             interaction (discord.Interaction): The interaction that the bot makes
             member (discord.Member): The member to nickname moderate
         """
-        if member.top_role >= interaction.user.top_role and interaction.user.id != interaction.guild.owner_id:
-            await interaction.response.send_message('You can only change the nickname of people below you!', ephemeral=True)
-            return
-        if member.id == interaction.guild.owner_id:
-            await interaction.response.send_message('You cannot change the nickname of the owner!', ephemeral=True)
-            return
+        authorized = check_hierarchy(member, interaction.user, interaction.guild)
+
+        if not authorized:
+            await interaction.response.send_message('You cannot do that', ephemeral=True)
+
         nickname_id = ''.join(choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=9))
         await member.edit(nick=f'Moderated {nickname_id}')
 
