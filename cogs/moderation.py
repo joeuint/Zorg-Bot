@@ -5,7 +5,7 @@ import string
 import discord
 from discord.ext import commands
 from discord import app_commands
-from utils.checks import can_kick, can_ban, can_manage_nicknames, check_hierarchy
+from utils.checks import can_kick, can_ban, can_manage_nicknames, check_hierarchy, can_manage_messages
 
 
 class Moderation(commands.Cog):
@@ -101,6 +101,28 @@ class Moderation(commands.Cog):
         await member.edit(nick=f'Moderated {nickname_id}')
 
         await interaction.response.send_message('Nickname Moderated!')
+
+    @app_commands.command(name='mute', description='Mutes a user')
+    @app_commands.describe(member='The member to mute')
+    @can_manage_messages()
+    async def mute(self, interaction: discord.Interaction, member: discord.Member):
+        """Assigns a mute role to a user
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            member (discord.Member): The member to mute
+        """
+        # NOTE: This value is currently hard coded but, will be configurable soon
+        role = discord.Object(1106799442205609984)
+
+        authorized = check_hierarchy(member, interaction.user, interaction.guild)
+
+        if not authorized:
+            await interaction.response.send_message('You cannot mute that user.', ephemeral=True)
+
+        await member.add_roles(role)
+
+        await interaction.response.send_message(f'Muted {member.name}!', ephemeral=True)
 
 
 async def setup(bot: commands.Bot):
