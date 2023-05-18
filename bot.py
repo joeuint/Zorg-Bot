@@ -14,7 +14,6 @@ from utils.logging import logging_setup
 from utils.cogs import load_cogs
 from utils.db import init_db
 
-
 def main() -> None:
     """The main function"""
     load_dotenv()
@@ -30,9 +29,9 @@ def main() -> None:
 
     root.log(logging.INFO, 'Connecting to database...')
 
-    database = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'))
+    bot.db = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'))
 
-    root.log(logging.INFO, f'Connected to database: {database.HOST}:{database.PORT}!')
+    root.log(logging.INFO, 'Connected to database!')
 
     load_cogs(bot, root)
 

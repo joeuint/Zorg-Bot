@@ -10,7 +10,7 @@ lint = "pylint --recursive=true ."
 "discord.py" = "*"
 python-dotenv = "*"
 pynacl = "*"
-pymongo = "*"
+motor = "*"
 
 [dev-packages]
 pylint = "*"

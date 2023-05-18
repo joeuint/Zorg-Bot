@@ -3,14 +3,13 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from utils.db import DB
 
 
 class Settings(commands.GroupCog, name='settings'):
     """Cog for Utility commands"""
 
     def __init__(self, bot) -> None:
-        self.bot: commands.Bot = bot
+        self.bot = bot
         super().__init__()
 
     @app_commands.command(name='muterole', description='Configure the bot')
@@ -21,8 +20,8 @@ class Settings(commands.GroupCog, name='settings'):
         Args:
             interaction (discord.Interaction): The discord interaction
         """
-        settings_collection = DB.get_collection('settings')
-        settings_collection.update_one(
+        settings_collection = self.bot.db.get_collection('settings')
+        await settings_collection.update_one(
             { 'server_id': interaction.guild_id },
             { '$set': {'mute_role': role.id} },
             upsert=True
