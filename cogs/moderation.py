@@ -99,7 +99,6 @@ class Moderation(commands.Cog):
 
         nickname_id = ''.join(choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=9))
         await member.edit(nick=f'Moderated {nickname_id}')
-
         await interaction.response.send_message('Nickname Moderated!')
 
     @app_commands.command(name='mute', description='Mutes a user')
@@ -113,7 +112,18 @@ class Moderation(commands.Cog):
             member (discord.Member): The member to mute
         """
         # NOTE: This value is currently hard coded but, will be configurable soon
-        role = discord.Object(1106799442205609984)
+        settings_collection = self.bot.db.get_collection('settings')
+        server_settings = await settings_collection.find_one({'server_id': interaction.guild_id})
+
+        if server_settings is None:
+            await interaction.response.send_message('muterole not setup', ephemeral=True)
+            return
+        mute_role = server_settings.get('mute_role')
+
+        if not mute_role:
+            await interaction.response.send_message('muterole not setup', ephemeral=True)
+            return
+        role = discord.Object(mute_role)
 
         authorized = check_hierarchy(member, interaction.user, interaction.guild)
 
