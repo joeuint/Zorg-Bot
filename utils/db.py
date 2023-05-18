@@ -1,9 +1,10 @@
 """Utilites relating to the database"""
 from pymongo import MongoClient
+from pymongo.database import Database
 
-DB = None
+DB: Database = None
 
-def init_db(hostname, port, db_name) -> MongoClient:
+def init_db(hostname: str, port: int, db_name: str) -> MongoClient:
     """Initializes and returns the MongoDB connection
 
     Returns:
