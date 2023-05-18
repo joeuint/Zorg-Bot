@@ -29,7 +29,7 @@ def logging_setup() -> logging.Logger:
     root.addHandler(file_handler)
     root.addHandler(console_handler)
 
-    root.setLevel(logging.DEBUG)
+    root.setLevel(logging.INFO)
 
     root.log(logging.INFO, '### Starting Bot ###')
 
