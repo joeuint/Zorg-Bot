@@ -15,7 +15,7 @@ class Settings(commands.GroupCog, name='settings'):
     @app_commands.command(name='muterole', description='Configure the bot')
     @app_commands.describe(role='The mute role')
     async def muterole(self, interaction: discord.Interaction, role: discord.Role):
-        """sets the muterole for the server
+        """Sets the muterole for the server
 
         Args:
             interaction (discord.Interaction): The discord interaction
