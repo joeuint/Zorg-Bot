@@ -96,6 +96,7 @@ class Moderation(commands.Cog):
 
         if not authorized:
             await interaction.response.send_message('You cannot do that', ephemeral=True)
+            return
 
         nickname_id = ''.join(choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=9))
         await member.edit(nick=f'Moderated {nickname_id}')
