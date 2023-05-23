@@ -37,19 +37,6 @@ class Moderation(commands.Cog):
         await member.ban(reason=reason + f' (Banned by {interaction.user.name}#{interaction.user.discriminator})')
         await interaction.response.send_message('Member has been banned', ephemeral=hidden)
 
-    @ban.error
-    async def ban_error(self, interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
-        """Executes when the ban command fails
-
-        Args:
-            interaction (discord.Interaction): The interaction that the bot makes
-            error (discord.app_commands.AppCommandError): The exception that occurred
-        """
-        if isinstance(error, discord.app_commands.errors.CommandInvokeError):
-            if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
-                # Bot missing permissions
-                await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)
-
     @app_commands.command(name='kick', description='Kicks a user')
     @app_commands.describe(member='The member to kick.', reason='The reason for the kick', hidden='If the command is visible to the chat')
     @can_kick()
@@ -69,18 +56,6 @@ class Moderation(commands.Cog):
 
         await member.kick(reason=reason + f' (Kicked by {interaction.user.name}#{interaction.user.discriminator})')
         await interaction.response.send_message('Member has been kicked', ephemeral=hidden)
-
-    @kick.error
-    async def kick_error(self, interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
-        """Executes when kick command fails
-
-        Args:
-            interaction (discord.Interaction): The interaction that the bot makes
-            error (discord.app_commands.AppCommandError): The exception that occurs
-        """
-        if isinstance(error, discord.app_commands.errors.CommandInvokeError):
-            if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
-                await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)
 
     @app_commands.command(name='modnick', description='Moderates a user\'s nickname')
     @app_commands.describe(member='The member to moderate')
@@ -135,6 +110,17 @@ class Moderation(commands.Cog):
         await member.add_roles(role)
 
         await interaction.response.send_message(f'Muted {member.name}!', ephemeral=True)
+
+    async def cog_app_command_error(self, interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
+        """Executes when kick command fails
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            error (discord.app_commands.AppCommandError): The exception that occurs
+        """
+        if isinstance(error, discord.app_commands.errors.CommandInvokeError):
+            if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
+                await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)
 
 
 async def setup(bot: commands.Bot):
