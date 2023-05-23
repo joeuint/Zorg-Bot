@@ -29,7 +29,7 @@ class Moderation(commands.Cog):
         if reason == '':
             reason = 'No reason Provided'
 
-        authorized = check_hierarchy(member, interaction.user, interaction.guild)
+        authorized = check_hierarchy(member, interaction.user, interaction.guild, self.bot)
 
         if not authorized:
             await interaction.response.send_message('You cannot do that', ephemeral=True)
@@ -62,7 +62,7 @@ class Moderation(commands.Cog):
             reason (str, optional): The reason for the kick. Defaults to 'No reason provided'.
             hidden (bool, optional): Hides the message. Defaults to False.
         """
-        authorized = check_hierarchy(member, interaction.user, interaction.guild)
+        authorized = check_hierarchy(member, interaction.user, interaction.guild, self.bot)
 
         if not authorized:
             await interaction.response.send_message('You cannot do that', ephemeral=True)
@@ -92,7 +92,7 @@ class Moderation(commands.Cog):
             interaction (discord.Interaction): The interaction that the bot makes
             member (discord.Member): The member to nickname moderate
         """
-        authorized = check_hierarchy(member, interaction.user, interaction.guild)
+        authorized = check_hierarchy(member, interaction.user, interaction.guild, self.bot)
 
         if not authorized:
             await interaction.response.send_message('You cannot do that', ephemeral=True)
@@ -125,7 +125,7 @@ class Moderation(commands.Cog):
             return
         role = discord.Object(mute_role)
 
-        authorized = check_hierarchy(member, interaction.user, interaction.guild)
+        authorized = check_hierarchy(member, interaction.user, interaction.guild, self.bot)
 
         if not authorized:
             await interaction.response.send_message('You cannot mute that user.', ephemeral=True)

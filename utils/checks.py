@@ -1,5 +1,6 @@
 """Discord check decorators"""
 import discord
+from discord.ext import commands
 from discord import app_commands
 
 
@@ -62,8 +63,8 @@ def can_manage_nicknames():
         return interaction.permissions.manage_nicknames
     return app_commands.check(predicate)
 
-def check_hierarchy(member: discord.Member, user: discord.Member, guild: discord.Guild):
-    """Checks if user is high enough in the role heirarchy to perform an action
+def check_hierarchy(member: discord.Member, user: discord.Member, guild: discord.Guild, bot: commands.Bot) -> bool:
+    """Checks if user is high enough in the role hierarchy to perform an action
 
     Args:
         member (discord.Member): The victim
@@ -75,7 +76,7 @@ def check_hierarchy(member: discord.Member, user: discord.Member, guild: discord
     """
     if member.top_role >= user.top_role and user.id != guild.owner_id:
         return False
-    if member.id == guild.owner_id:
+    if member.id == guild.owner_id or member.id == bot.id:
         return False
     return True
     
