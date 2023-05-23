@@ -44,7 +44,7 @@ def main() -> None:
     @commands.is_owner()
     @bot.command()
     async def sync(ctx: commands.Context):
-        """Syncronizes app commands with debug guild
+        """Synchronizes app commands with debug guild
 
         Args:
             ctx (commands.Context): The context of the interaction
@@ -57,7 +57,7 @@ def main() -> None:
     @commands.is_owner()
     @bot.command()
     async def syncglobal(ctx: commands.Context):
-        """Syncronizes app commands gloablly
+        """Synchronizes app commands globally
 
         Args:
             ctx (commands.Context): The context of the interaction
