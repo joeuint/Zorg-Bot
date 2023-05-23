@@ -130,6 +130,7 @@ class Moderation(commands.Cog):
 
         if not authorized:
             await interaction.response.send_message('You cannot mute that user.', ephemeral=True)
+            return
 
         await member.add_roles(role)
 
