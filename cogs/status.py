@@ -1,6 +1,5 @@
 """Contains general, but useful commands for the bot"""
 
-import discord
 from discord.ext import commands, tasks
 from utils.status import get_random_activity
 
