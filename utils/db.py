@@ -1,4 +1,4 @@
-"""Utilites relating to the database"""
+"""Utilities relating to the database"""
 import motor.motor_asyncio as motor
 
 def init_db(hostname: str, port: int, db_name: str) -> motor.AsyncIOMotorDatabase:

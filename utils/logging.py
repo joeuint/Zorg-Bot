@@ -1,4 +1,4 @@
-"""Logging utilites for the bot"""
+"""Logging utilities for the bot"""
 
 import logging
 import sys
