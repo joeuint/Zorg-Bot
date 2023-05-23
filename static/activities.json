@@ -2,5 +2,17 @@
     {
         "type": "Watching",
         "message": "you"
+    },
+    {
+        "type": "Playing",
+        "message": "Python for Life!"
+    },
+    {
+        "type": "Listening to",
+        "message": "you"
+    },
+    {
+        "type": "Playing",
+        "message": "github.com/joqwer/Zorg-Bot"
     }
 ]
