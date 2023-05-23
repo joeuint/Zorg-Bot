@@ -43,7 +43,7 @@ class Moderation(commands.Cog):
 
         Args:
             interaction (discord.Interaction): The interaction that the bot makes
-            error (discord.app_commands.AppCommandError): The exception that occured
+            error (discord.app_commands.AppCommandError): The exception that occurred
         """
         if isinstance(error, discord.app_commands.errors.CommandInvokeError):
             if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
