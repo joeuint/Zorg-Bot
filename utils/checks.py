@@ -76,7 +76,7 @@ def check_hierarchy(member: discord.Member, user: discord.Member, guild: discord
     """
     if member.top_role >= user.top_role and user.id != guild.owner_id:
         return False
-    if member.id == guild.owner_id or member.id == bot.user.id:
+    if member.id in (guild.owner_id, bot.user.id):
         return False
     return True
     
