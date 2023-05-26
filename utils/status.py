@@ -22,4 +22,6 @@ async def get_random_activity() -> Dict[str, str]:
             activity = discord.Activity(type=discord.ActivityType.listening, name=message)
         elif activity_type == 'Watching':
             activity = discord.Activity(type=discord.ActivityType.watching, name=message)
+        else:
+            raise ValueError(f'Invalid activity type: {activity_type}') # Insert exception here
         return activity
