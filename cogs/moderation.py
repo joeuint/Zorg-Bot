@@ -77,6 +77,24 @@ class Moderation(commands.Cog):
         await member.edit(nick=f'Moderated {nickname_id}')
         await interaction.response.send_message('Nickname Moderated!')
 
+    @app_commands.command(name='unnick', description='Removes a user\'s nickname')
+    @app_commands.describe(member='The member to change the nickname of')
+    @can_manage_nicknames()
+    async def unnick(self, interaction: discord.Interaction, member: discord.Member):
+        """Removes a user's nickname
+
+        Args:
+            interaction (discord.Interaction): The interaction that the bot makes
+            member (discord.Member): The member to nickname clear
+        """
+        authorized = check_hierarchy(member, interaction.user, interaction.guild, self.bot)
+
+        if not authorized:
+            await interaction.response.send_message('You cannot do that', ephemeral=True)
+            return
+        await member.edit(nick='')
+        await interaction.response.send_message('Nickname removed!', ephemeral=True)
+
     @app_commands.command(name='mute', description='Mutes a user')
     @app_commands.describe(member='The member to mute')
     @can_manage_messages()
@@ -121,6 +139,7 @@ class Moderation(commands.Cog):
         if isinstance(error, discord.app_commands.errors.CommandInvokeError):
             if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)
+                print(error)
 
 
 async def setup(bot: commands.Bot):
