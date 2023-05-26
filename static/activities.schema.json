@@ -1,0 +1,20 @@
+{
+    "schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+        "type": {
+            "type": "string",
+            "enum": [
+            "Watching",
+            "Playing",
+            "Listening to"
+            ]
+        },
+        "message": {
+            "type": "string"
+        }
+        }
+    }
+}
