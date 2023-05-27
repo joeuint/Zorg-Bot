@@ -14,5 +14,9 @@
     {
         "type": "Playing",
         "message": "github.com/joqwer/Zorg-Bot"
+    },
+    {
+        "type": "Playing",
+        "message": "over 600 lines"
     }
 ]
