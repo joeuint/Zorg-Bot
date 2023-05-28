@@ -6,13 +6,14 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from utils.checks import can_kick, can_ban, can_manage_nicknames, check_hierarchy, can_manage_messages
+from bot import Bot
 
 
 class Moderation(commands.Cog):
     """Cog for Moderation commands"""
 
     def __init__(self, bot) -> None:
-        self.bot: commands.Bot = bot
+        self.bot: Bot = bot
 
     @app_commands.command(name='ban', description='Bans a user')
     @app_commands.describe(member='The member to ban.', reason='The reason for the ban', hidden='If the command is visible to the chat')

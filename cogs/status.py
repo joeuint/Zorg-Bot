@@ -2,13 +2,14 @@
 
 from discord.ext import commands, tasks
 from utils.status import get_random_activity
+from bot import Bot
 
 
 class Status(commands.Cog):
     """Cog for updating the bot's status"""
 
     def __init__(self, bot) -> None:
-        self.bot: commands.Bot = bot
+        self.bot: Bot = bot
 
     @tasks.loop(hours=1)
     async def update_activity_task(self):

@@ -4,6 +4,7 @@
 import os
 import logging
 from dotenv import load_dotenv
+from motor.motor_asyncio import AsyncIOMotorDatabase
 
 # Discord.py
 import discord
@@ -13,6 +14,13 @@ from discord.ext import commands
 from utils.logging import logging_setup
 from utils.cogs import load_cogs
 from utils.db import init_db
+
+class Bot(commands.Bot):
+    """An extended version of the discord.py bot class"""
+    def __init__(self, prefix, *, intents):
+        # pylint: disable=C0103
+        self.db: AsyncIOMotorDatabase = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'))
+        super().__init__(prefix, intents=intents)
 
 def main() -> None:
     """The main function"""
@@ -25,11 +33,9 @@ def main() -> None:
     intents = discord.Intents.default()
     intents.message_content = True
 
-    bot = commands.Bot('%', intents=intents)
+    bot = Bot('%', intents=intents)
 
     root.log(logging.INFO, 'Connecting to database...')
-
-    bot.db = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'))
 
     root.log(logging.INFO, 'Connected to database!')
 

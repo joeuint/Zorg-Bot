@@ -3,14 +3,14 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
+from bot import Bot
 
 
 class Settings(commands.GroupCog, name='settings'):
     """Cog for Utility commands"""
 
     def __init__(self, bot) -> None:
-        self.bot = bot
-        super().__init__()
+        self.bot: Bot = bot
 
     @app_commands.command(name='muterole', description='Configure the bot')
     @app_commands.describe(role='The mute role')

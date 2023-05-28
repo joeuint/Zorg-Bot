@@ -8,6 +8,7 @@ import aiohttp
 import discord
 from discord.ext import commands
 from discord import app_commands
+from bot import Bot
 
 
 async def get_meme():
@@ -27,7 +28,7 @@ class Fun(commands.Cog):
     """Cog for Fun commands"""
 
     def __init__(self, bot) -> None:
-        self.bot: commands.Bot = bot
+        self.bot: Bot = bot
 
     @app_commands.command(name='8ball', description='Shake an 8ball and see what happens!')
     @app_commands.describe(question='The question to ask it')
@@ -61,7 +62,6 @@ class Fun(commands.Cog):
             "Outlook not so good.",
             "Very doubtful."
         ]
-
         await interaction.response.send_message(random.choice(responses))
 
     @app_commands.command(name='dice', description='Roll a dice')

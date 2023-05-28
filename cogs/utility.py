@@ -3,13 +3,14 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
+from bot import Bot
 
 
 class Utility(commands.Cog):
     """Cog for Utility commands"""
 
     def __init__(self, bot) -> None:
-        self.bot: commands.Bot = bot
+        self.bot: Bot = bot
 
     @app_commands.command(name='ping', description='pong')
     async def ping(self, interaction: discord.Interaction) -> None:
