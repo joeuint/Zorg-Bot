@@ -5,7 +5,7 @@ def init_db(hostname: str, port: int, db_name: str) -> motor.AsyncIOMotorDatabas
     """Initializes and returns the MongoDB connection
 
     Returns:
-        MongoClient: The MongoDB database instance
+        AsyncIOMotorDatabase: The Motor database instance
     """
     # pylint: disable=C0103
     db = motor.AsyncIOMotorClient(hostname, port)[db_name]
