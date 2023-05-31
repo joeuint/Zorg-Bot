@@ -20,7 +20,7 @@ class Bot(commands.Bot):
     def __init__(self, prefix, *, intents):
         # pylint: disable=C0103
         self.db: AsyncIOMotorDatabase = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'))
-        root.log(logging.INFO, 'Connected to database!')
+        # TODO: Add root logger in bot class
         super().__init__(prefix, intents=intents)
 
 def main() -> None:
