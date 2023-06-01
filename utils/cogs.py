@@ -3,10 +3,8 @@
 import os
 import logging
 import asyncio
-from bot import Bot
 
-
-def load_cogs(bot: Bot) -> None:
+def load_cogs(bot) -> None:
     """Loads all cogs in the ./cogs directory
 
     Args:
