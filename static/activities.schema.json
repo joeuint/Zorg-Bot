@@ -4,17 +4,19 @@
     "items": {
         "type": "object",
         "properties": {
-        "type": {
-            "type": "string",
-            "enum": [
-            "Watching",
-            "Playing",
-            "Listening to"
-            ]
+            "type": {
+                "type": "string",
+                "enum": [
+                "Watching",
+                "Playing",
+                "Listening to"
+                ]
+            },
+            "message": {
+                "type": "string"
+            }
         },
-        "message": {
-            "type": "string"
-        }
-        }
+        "required": ["message", "type"],
+        "additionalProperties": false
     }
 }
