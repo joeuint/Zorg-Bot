@@ -12,6 +12,10 @@ class Settings(commands.GroupCog, name='settings'):
     def __init__(self, bot) -> None:
         self.bot: Bot = bot
 
+    # pylint: disable=W0221
+    def interaction_check(self, interaction: discord.Interaction) -> bool:
+        return interaction.permissions.manage_guild
+
     @app_commands.command(name='muterole', description='Configure the bot')
     @app_commands.describe(role='The mute role')
     async def muterole(self, interaction: discord.Interaction, role: discord.Role):
@@ -27,6 +31,10 @@ class Settings(commands.GroupCog, name='settings'):
             upsert=True
         )
         await interaction.response.send_message(f'Mute role set to {role.name} ({role.id})')
+
+    async def cog_app_command_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        if error.isinstance(app_commands.errors.CheckFailure):
+            await interaction.response.send_message('You need to be able to manage the server to use this command!')
 
 async def setup(bot: commands.Bot):
     """Sets up the cog
