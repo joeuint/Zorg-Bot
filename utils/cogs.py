@@ -3,10 +3,10 @@
 import os
 import logging
 import asyncio
-from discord.ext import commands
+from bot import Bot
 
 
-def load_cogs(bot: commands.Bot, root: logging.Logger) -> None:
+def load_cogs(bot: Bot) -> None:
     """Loads all cogs in the ./cogs directory
 
     Args:
@@ -17,4 +17,4 @@ def load_cogs(bot: commands.Bot, root: logging.Logger) -> None:
     for file in cog_files:
         if file.endswith('.py'):
             asyncio.run(bot.load_extension(f'cogs.{file[:-3]}'))
-            root.log(logging.INFO, f'Loaded extension: {file[:-3]}')
+            bot.root.log(logging.INFO, f'Loaded extension: {file[:-3]}')

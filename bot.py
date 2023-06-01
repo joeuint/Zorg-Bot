@@ -20,14 +20,12 @@ class Bot(commands.Bot):
     def __init__(self, prefix, *, intents):
         # pylint: disable=C0103
         self.db: AsyncIOMotorDatabase = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'))
-        # TODO: Add root logger in bot class
+        self.root = logging_setup()
         super().__init__(prefix, intents=intents)
 
 def main() -> None:
     """The main function"""
     load_dotenv()
-
-    root = logging_setup()
 
     token = os.getenv('DISCORD_TOKEN')
 
@@ -36,12 +34,12 @@ def main() -> None:
 
     bot = Bot('%', intents=intents)
 
-    load_cogs(bot, root)
+    load_cogs(bot)
 
     @bot.event
     async def on_ready():
         """Prepares the bot when it is ready"""
-        root.log(logging.INFO,
+        bot.root.log(logging.INFO,
                  f'I am logged in as {bot.user.name}#{bot.user.discriminator}')
 
     @commands.is_owner()
