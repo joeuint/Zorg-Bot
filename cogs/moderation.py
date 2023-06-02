@@ -141,6 +141,8 @@ class Moderation(commands.Cog):
             if str(error.__cause__) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await interaction.response.send_message('I do not have the permissions to do that!', ephemeral=True)
                 print(error)
+        elif isinstance(error, app_commands.errors.CheckFailure):
+            await interaction.response.send_message('You do not have sufficient permissions to do this')
 
 
 async def setup(bot: commands.Bot):
