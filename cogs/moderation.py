@@ -106,7 +106,6 @@ class Moderation(commands.Cog):
             interaction (discord.Interaction): The interaction that the bot makes
             member (discord.Member): The member to mute
         """
-        # NOTE: This value is currently hard coded but, will be configurable soon
         settings_collection = self.bot.db.get_collection('settings')
         server_settings = await settings_collection.find_one({'server_id': interaction.guild_id})
 
