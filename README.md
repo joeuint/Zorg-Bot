@@ -45,6 +45,6 @@ To contribute a new activity status, [Fork](https://github.com/joqwer/Zorg-Bot/f
 
 This example will make the bot's status display `Playing some games`
 
-Then, Open a [pull request](https://github.com/joqwer/Zorg-Bot/pulls) under the tag "Activity".
+Then, Open a [pull request](https://github.com/joqwer/Zorg-Bot/pulls) under the tag "Activity Idea".
 
 If your PR is merged, the bot will have a chance to randomly pick your status every hour.
