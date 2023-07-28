@@ -14,7 +14,7 @@ class Economy(commands.Cog):
         self.bot: Bot = bot
 
     @app_commands.command(name='openaccount', description='Opens an account in the economy system')
-    async def ping(self, interaction: discord.Interaction) -> None:
+    async def openaccount(self, interaction: discord.Interaction) -> None:
         """Returns the ping of the bot
 
         Args:
