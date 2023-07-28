@@ -1,12 +1,12 @@
 """Contains general, but useful commands for the bot"""
 
+import random
 import discord
 import bson
 from discord.ext import commands
 from discord import app_commands
 from bot import Bot
 from utils import crud
-import random
 
 class Economy(commands.Cog):
     """Cog for Economy commands"""
