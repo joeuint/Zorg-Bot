@@ -16,12 +16,14 @@ class Status(commands.Cog):
         """Updates the bot's status every hour"""
         activity = await get_random_activity()
         await self.bot.change_presence(activity=activity)
+        self.bot.root.info(f'Updated activity to {activity.name} ({activity.type})')
 
     @commands.Cog.listener('on_ready')
     async def initial_activity_task(self):
         """Updates the bot's activity on ready"""
         activity = await get_random_activity()
         await self.bot.change_presence(activity=activity)
+        self.bot.root.info(f'Set initial activity to {activity.name} ({activity.type})')
 
 async def setup(bot: commands.Bot):
     """Sets up the cog

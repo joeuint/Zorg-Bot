@@ -1,7 +1,7 @@
 """Status utilities for the bot"""
 import json
 from random import choice
-from typing import List, Dict
+from typing import List
 import os
 import discord
 
@@ -9,7 +9,7 @@ dirname = os.path.dirname(__file__)
 
 STATUS_FILE = os.path.join(dirname, '../static/activities.json')
 
-async def get_random_activity() -> Dict[str, str]:
+async def get_random_activity() -> discord.Activity:
     """Gets a random activity from STATUS_FILE"""
     with open(STATUS_FILE, 'r', encoding='UTF-8') as json_file:
         json_data: List[dict] = json.load(json_file)

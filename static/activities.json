@@ -4,10 +4,6 @@
         "message": "you"
     },
     {
-        "type": "Playing",
-        "message": "Python for Life!"
-    },
-    {
         "type": "Listening to",
         "message": "you"
     },
@@ -17,6 +13,14 @@
     },
     {
         "type": "Playing",
-        "message": "over 600 lines"
+        "message": "over 600 LOC"
+    },
+    {
+        "type": "Playing",
+        "message": "with your mother"
+    },
+    {
+        "type": "Playing",
+        "message": "🤓"
     }
 ]

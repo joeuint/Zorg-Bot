@@ -1,0 +1,58 @@
+{
+    "items": [
+        {
+            "name": "the One Piece",
+            "weight": 2,
+            "min_val": 100000,
+            "max_val": 200000
+        },
+        {
+            "name": "Tottenham's trophies",
+            "weight": 3,
+            "min_val": 50000,
+            "max_val": 75000
+        },
+        {
+            "name": "Love",
+            "weight": 1,
+            "min_val": 1000000,
+            "max_val": 1100000
+        },
+        {
+            "name": "a gaming PC",
+            "weight": 15,
+            "min_val": 3000,
+            "max_val": 10000
+        },
+        {
+            "name": "a desk",
+            "weight": 30,
+            "min_val": 100,
+            "max_val": 700
+        },
+        {
+            "name": "a shoe",
+            "weight": 30,
+            "min_val": 100,
+            "max_val": 300
+        },
+        {
+            "name": "loose change",
+            "weight": 40,
+            "min_val": 10,
+            "max_val": 30
+        },
+        {
+            "name": "a laptop",
+            "weight": 15,
+            "min_val": 500,
+            "max_val": 1800
+        },
+        {
+            "name": "pen",
+            "weight": 40,
+            "min_val": 10,
+            "max_val": 30
+        }
+    ]
+}
