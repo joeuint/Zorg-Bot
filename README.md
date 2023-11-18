@@ -9,7 +9,7 @@ Zorg-Bot is a multi purpose Discord bot. It is under very early development and 
 
 ### ⚠️ **Reminder**
 
-You may self host this bot on your own hardware **as long as you follow the [AGPL-3.0](https://github.com/joqwer/Zorg-Bot/blob/main/LICENSE)**.
+You may self host this bot on your own hardware **as long as you follow the [AGPL-3.0](https://github.com/joseph-umana/Zorg-Bot/blob/main/LICENSE)**.
 
 ### Instructions
 
