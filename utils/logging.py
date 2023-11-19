@@ -5,7 +5,7 @@ import sys
 from logging.handlers import TimedRotatingFileHandler
 
 
-def logging_setup() -> logging.Logger:
+def logging_setup(log_level: int) -> logging.Logger:
     """Sets up logging for the bot
 
     Returns:
@@ -29,7 +29,7 @@ def logging_setup() -> logging.Logger:
     root.addHandler(file_handler)
     root.addHandler(console_handler)
 
-    root.setLevel(logging.DEBUG)
+    root.setLevel(log_level)
 
     root.log(logging.INFO, '### Starting Bot ###')
 
