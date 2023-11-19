@@ -1,4 +1,4 @@
-"""Contains general, but useful commands for the bot"""
+"""Contains resources needed for the economy system"""
 
 import json
 import random
