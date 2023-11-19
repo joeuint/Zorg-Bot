@@ -9,7 +9,7 @@ def init_db(hostname: str, port: int, db_name: str, username: str = '', password
     """
     # pylint: disable=C0103
 
-    if username or password:
+    if username != '' or password != '':
         db = motor.AsyncIOMotorClient(f'mongodb://{username}:{password}@{hostname}:{port}')[db_name]
     else:
         db = motor.AsyncIOMotorClient(f'mongodb://{hostname}:{port}')[db_name]
