@@ -2,7 +2,7 @@
 
 from motor.motor_asyncio import AsyncIOMotorClient
 
-async def init_db(username, password, hostname, port, db_name):
+async def init_db(hostname, port, db_name, username = '', password = ''):
     """Initializes the database
 
     Args:

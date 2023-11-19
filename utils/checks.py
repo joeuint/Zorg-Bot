@@ -1,5 +1,6 @@
 """Discord check decorators"""
 import os
+from urllib.parse import quote_plus
 import discord
 from discord.ext import commands
 from discord import app_commands
@@ -97,7 +98,7 @@ def has_bankacc():
             bool: Whether the user has an account or not
         """
         # I'm way too tired to do this better
-        database = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'))
+        database = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'), quote_plus(os.getenv('MONGO_USERNAME') if os.getenv('MONGO_USERNAME') else ''), quote_plus(os.getenv('MONGO_PASSWORD') if os.getenv('MONGO_PASSWORD') else ''))
 
         if await crud.get_economy_user_by_id(database, interaction.user.id, interaction.guild_id) is None:
             raise app_commands.CheckFailure("You do not have a bank account. To get one, please run /openaccount.")
