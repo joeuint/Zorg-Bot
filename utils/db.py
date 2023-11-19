@@ -9,7 +9,7 @@ def init_db(hostname: str, port: int, db_name: str, username: str = '', password
     """
 
     if username != '' or password != '':
-        uri = f'mongodb://{username}:{password}@{hostname}:{port}/test?authSource=admin'
+        uri = f'mongodb://{username}:{password}@{hostname}:{port}/test?authSource={db_name}'
         db = motor.AsyncIOMotorClient(uri)[db_name]
     else:
         uri = f'mongodb://{hostname}:{port}/test'
