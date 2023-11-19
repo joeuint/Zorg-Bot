@@ -74,6 +74,26 @@ class Economy(commands.Cog):
 
         await interaction.response.send_message('Account created!')
 
+    @app_commands.command(name='balance')
+    @has_bankacc()
+    async def balance(self, interaction: discord.Interaction):
+        """Gets the users balance
+
+        Args:
+            interaction (discord.Interaction)
+        """
+        account = await crud.get_economy_user_by_id(self.bot.db, interaction.user.id, interaction.guild.id)
+
+        cash = account['cash']
+        bank = account['bank']
+
+        embed = discord.Embed(title='💰 Balance')
+        embed.add_field(name='💵 Cash', value=f'Ƶ{cash}')
+        embed.add_field(name='🏦 Bank', value=f'Ƶ{bank}')
+        embed.color = discord.Color.green()
+
+        await interaction.response.send_message(embed=embed)
+
     @app_commands.checks.cooldown(1, 120, key=lambda i: (i.user.id, i.guild_id))
     @app_commands.command(name='search', description='Search for money')
     @has_bankacc()
