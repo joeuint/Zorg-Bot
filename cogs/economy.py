@@ -50,6 +50,19 @@ class Economy(commands.Cog):
                 self.items.append(Item(item['name'], item['weight'], item['min_val'], item['max_val']))
         bot.root.info('Loaded all items')
 
+    def format_currency(self, amount: int) -> str:
+        """Formats an amount into currency by adding comma seperators & adding currency sign
+
+        Args:
+            amount (int)
+
+        Returns:
+            str: The formatted string
+        """
+        amount_str = f'{amount:,}'
+
+        return 'Ƶ' + amount_str
+
     @app_commands.command(name='openaccount', description='Opens an account in the economy system')
     async def openaccount(self, interaction: discord.Interaction) -> None:
         """Opens an economy account
@@ -88,8 +101,8 @@ class Economy(commands.Cog):
         bank = account['bank']
 
         embed = discord.Embed(title='💰 Balance')
-        embed.add_field(name='💵 Cash', value=f'Ƶ{cash}')
-        embed.add_field(name='🏦 Bank', value=f'Ƶ{bank}')
+        embed.add_field(name='💵 Cash', value=self.format_currency(cash))
+        embed.add_field(name='🏦 Bank', value=self.format_currency(bank))
         embed.color = discord.Color.green()
 
         await interaction.response.send_message(embed=embed)
@@ -110,7 +123,7 @@ class Economy(commands.Cog):
         await crud.edit_cash_user(self.bot.db, interaction.user.id, interaction.guild_id, amount)
 
         embed = discord.Embed(title="Item found")
-        embed.add_field(name='', value=f'You found {item} worth {amount} money!')
+        embed.add_field(name='', value=f'You found {item} worth {self.format_currency(amount)} money!')
         embed.color = discord.Colour.random()
 
         await interaction.response.send_message(embed=embed)
@@ -154,16 +167,16 @@ class Economy(commands.Cog):
         ]
 
         positive_responses = [
-            f'Here, have {amount} money',
-            f'Here you go peasant, {amount} money for u',
-            f'Whatever, here is {amount} money',
-            f'Fine, here is {amount} money',
-            f'Here, take {amount} money',
-            f'You poor thing, take {amount} money',
-            f'Hopefully this helps, {amount} money',
-            f'I cannot imagine being poor, take {amount} money',
-            f'Just do not buy drugs, take {amount} money',
-            f'How desperate are you, take {amount} money'
+            f'Here, have {self.format_currency(amount)}',
+            f'Here you go peasant, {self.format_currency(amount)} for u',
+            f'Whatever, here is {self.format_currency(amount)}',
+            f'Fine, here is {self.format_currency(amount)}',
+            f'Here, take {self.format_currency(amount)}',
+            f'You poor thing, take {self.format_currency(amount)}',
+            f'Hopefully this helps, {self.format_currency(amount)}',
+            f'I cannot imagine being poor, take {self.format_currency(amount)}',
+            f'Just don\'t buy drugs, take {self.format_currency(amount)}',
+            f'How desperate are you, take {self.format_currency(amount)}'
         ]
 
         negative_responses = [
