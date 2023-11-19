@@ -7,10 +7,11 @@ def init_db(hostname: str, port: int, db_name: str, username: str = '', password
     Returns:
         AsyncIOMotorDatabase: The Motor database instance
     """
-    # pylint: disable=C0103
 
     if username != '' or password != '':
-        db = motor.AsyncIOMotorClient(hostname, port, username=username, password=password).get_database(db_name)
+        uri = f'mongodb://{username}:{password}@{hostname}:{port}/{db_name}?authSource=\'admin\''
+        db = motor.AsyncIOMotorClient(uri)[db_name]
     else:
-        db = motor.AsyncIOMotorClient(hostname, port).get_database(db_name)
+        uri = f'mongodb://{hostname}:{port}/{db_name}'
+        db = motor.AsyncIOMotorClient(uri)[db_name]
     return db
