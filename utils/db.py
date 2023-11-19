@@ -1,17 +1,19 @@
-"""Utilities relating to the database"""
-import motor.motor_asyncio as motor
+"""Database utilities"""
 
-def init_db(hostname: str, port: int, db_name: str, username: str = '', password: str = '') -> motor.AsyncIOMotorDatabase:
-    """Initializes and returns the MongoDB connection
+from motor.motor_asyncio import AsyncIOMotorClient
+
+async def init_db(username, password, hostname, port, db_name):
+    """Initializes the database
+
+    Args:
+        username (str): The username to use
+        password (str): The password to use
+        hostname (str): The hostname to use
+        port (int): The port to use
+        db_name (str): The database name to use
 
     Returns:
-        AsyncIOMotorDatabase: The Motor database instance
+        AsyncIOMotorClient: The database instance
     """
-
-    if username != '' or password != '':
-        uri = f'mongodb://{username}:{password}@{hostname}:{port}/test?authSource={db_name}'
-        db = motor.AsyncIOMotorClient(uri)[db_name]
-    else:
-        uri = f'mongodb://{hostname}:{port}/test'
-        db = motor.AsyncIOMotorClient(uri)[db_name]
-    return db
+    client = AsyncIOMotorClient(f'mongodb://{username}:{password}@{hostname}:{port}/{db_name}?authSource=admin')
+    return client[db_name]
