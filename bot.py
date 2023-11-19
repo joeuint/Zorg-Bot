@@ -20,7 +20,7 @@ class Bot(commands.Bot):
     """An extended version of the discord.py bot class"""
     def __init__(self, prefix, *, intents):
         # pylint: disable=C0103
-        self.db: AsyncIOMotorDatabase = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'), quote_plus(os.getenv('MONGO_USERNAME')), quote_plus(os.getenv('MONGO_PASSWORD')))
+        self.db: AsyncIOMotorDatabase = init_db(os.getenv('MONGO_HOSTNAME'), int(os.getenv('MONGO_PORT')), os.getenv('MONGO_DB'), quote_plus(os.getenv('MONGO_USERNAME') if os.getenv('MONGO_USERNAME') else ''), quote_plus(os.getenv('MONGO_PASSWORD') if os.getenv('MONGO_PASSWORD') else ''))
         self.root = logging_setup(int(os.getenv('LOG_LEVEL')))
         super().__init__(prefix, intents=intents)
 
