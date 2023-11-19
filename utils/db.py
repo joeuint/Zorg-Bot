@@ -15,5 +15,5 @@ async def init_db(hostname, port, db_name, username = '', password = ''):
     Returns:
         AsyncIOMotorClient: The database instance
     """
-    client = AsyncIOMotorClient(f'mongodb://{username}:{password}@{hostname}:{port}/{db_name}?authSource=admin')
+    client = AsyncIOMotorClient(f'mongodb://{username}:{password}@{hostname}:{port}/{db_name}?authSource=admin')[db_name]
     return client[db_name]
