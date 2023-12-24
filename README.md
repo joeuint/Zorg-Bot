@@ -31,7 +31,7 @@ Have a cool idea for an activity to add to the bot? Here is how you can contribu
 2. It is original and unique
 3. It is not terribly long
 
-To contribute a new activity status, [Fork](https://github.com/joqwer/Zorg-Bot/fork) the repository. Then, edit `static/activities.json` with the following format.
+To contribute a new activity status, [Fork](https://github.com/joeuint/Zorg-Bot/fork) the repository. Then, edit `static/activities.json` with the following format.
 
 ```json
 [
